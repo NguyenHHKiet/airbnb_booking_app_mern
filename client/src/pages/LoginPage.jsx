@@ -1,20 +1,24 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.post("/login", { email, password });
       alert("Login Successful!");
+      setRedirect(true);
     } catch (error) {
       alert(`Error: ${error}. Login Failed. `);
     }
   };
+
+  if (redirect) return <Navigate to={"/"} />;
 
   return (
     <div className=" grow flex items-center justify-around">
