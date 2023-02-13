@@ -64,18 +64,12 @@ app.post('/login', async (req, res) => {
   if (userDoc) {
     const passOk = bcrypt.compareSync(password, userDoc.password);
     if (passOk) {
-      res.cookie('my_cookie', 'geeksforgeeks');
       jwt.sign({
         email: userDoc.email,
         id: userDoc._id
       }, jwtSecret, {}, (err, token) => {
         if (err) throw err;
-        res.cookie('token', token, {
-          httpOnly: true,
-          sameSite: true,
-          signed: true,
-          maxAge: 24 * 60 * 60 * 1000,
-        }).json(userDoc);
+        res.cookie('token', token).json(userDoc);
       });
     } else {
       res.status.json('pass failed');
@@ -90,9 +84,10 @@ app.get('/profile', (req, res) => {
     token
   } = req.cookies;
   if (token) {
-    jwt.verify(token, jwtSecret, {}, (err, user) => {
+    jwt.verify(token, jwtSecret, {}, async(err, userData) => {
       if (err) throw err;
-      res.json(user);
+      const {name ,email ,_id} = await User.findById(userData.id);
+      res.json({name ,email ,_id});
     })
   } else {
     res.json(null);

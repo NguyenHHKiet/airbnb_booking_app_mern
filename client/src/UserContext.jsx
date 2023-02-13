@@ -6,13 +6,16 @@ export const UserContext = createContext({});
 
 export function UserContextProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [ready, setReady] = useState(false);
   useEffect(() => {
     if (!user) {
-      axios.get("/profile");
+      axios.get("/profile").then(({ data }) => {
+        setUser(data);
+        setReady(true);
+      });
     }
-    console.log(user);
   }, []);
-  return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ user, setUser, ready }}>{children}</UserContext.Provider>;
 }
 
 UserContextProvider.propTypes = {
