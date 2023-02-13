@@ -1,10 +1,21 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import Perks from "./Perks";
+import PhotosUploader from "./PhotosUploader";
 
 const MyPlaces = () => {
   const { action } = useParams();
+  const [title, setTitle] = useState("");
+  const [address, setAddress] = useState("");
+  const [addedPhotos, setAddedPhotos] = useState([]);
+  const [description, setDescription] = useState("");
   const [perks, setPerks] = useState([]);
+  const [extraInfo, setExtraInfo] = useState("");
+  const [checkIn, setCheckIn] = useState("");
+  const [checkOut, setCheckOut] = useState("");
+  const [maxGuests, setMaxGuests] = useState(1);
+  const [price, setPrice] = useState(100);
+  const [redirect, setRedirect] = useState(false);
 
   function inputHeader(text) {
     return <h2 className="text-2xl mt-4">{text}</h2>;
@@ -19,8 +30,13 @@ const MyPlaces = () => {
       </>
     );
   }
+
+  if (redirect) {
+    return <Navigate to={"/account/places"} />;
+  }
+
   return (
-    <div>
+    <div className="px-12">
       {action !== "new" && (
         <div className="text-center">
           <Link
@@ -51,46 +67,36 @@ const MyPlaces = () => {
             <input
               type="text"
               name="title"
-              value=""
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
               placeholder="title, for example: My lovely apt"
             />
             {preInput("Address", "Address to this place")}
-            <input type="text" name="address" value="" placeholder="address" />
+            <input
+              type="text"
+              name="address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              placeholder="address"
+            />
             {preInput("Photos", "more = better")}
-            <div className="flex gap-2">
-              <input type="text" placeholder="Add using a link ...jpg" />
-              <button type="submit" className="bg-gray-200 px-4 rounded-2xl">
-                Add&nbsp;photo
-              </button>
-            </div>
-            <div className="mt-2 grid grid-cols-3 md:grid-cols-4 lg:gird-cols-6">
-              <button
-                type="submit"
-                className="flex items-center justify-center border bg-transparent rounded-2xl p-8 text-gray-600">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-8 h-8">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
-                  />
-                </svg>
-                UPLOAD
-              </button>
-            </div>
+            <PhotosUploader addedPhotos={addedPhotos} onChange={setAddedPhotos} />
             {preInput("Description", "description of the place")}
-            <textarea className="w-full" />
+            <textarea
+              className="w-full"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
             {preInput("Perks", "select all the perks of your place")}
             <div className="grid mt-2 gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
               <Perks selected={perks} onChange={setPerks} />
             </div>
             {preInput("Extra info", "house rules, etc")}
-            <textarea className="w-full" />
+            <textarea
+              className="w-full"
+              value={extraInfo}
+              onChange={(e) => setExtraInfo(e.target.value)}
+            />
             {preInput(
               "Check in&out times",
               "add check in and out times, remember to have some time window for cleaning the room between guests"
@@ -98,19 +104,33 @@ const MyPlaces = () => {
             <div className="grid gap-2 grid-cols-2 md:grid-cols-4">
               <div>
                 <h3 className="mt-2 -mb-1">Check in time</h3>
-                <input type="text" placeholder="14" />
+                <input
+                  type="text"
+                  placeholder="14:00"
+                  value={checkIn}
+                  onChange={(ev) => setCheckIn(ev.target.value)}
+                />
               </div>
               <div>
                 <h3 className="mt-2 -mb-1">Check out time</h3>
-                <input type="text" placeholder="11" />
+                <input
+                  type="text"
+                  placeholder="18:00"
+                  value={checkOut}
+                  onChange={(ev) => setCheckOut(ev.target.value)}
+                />
               </div>
               <div>
                 <h3 className="mt-2 -mb-1">Max number of guests</h3>
-                <input type="number" />
+                <input
+                  type="number"
+                  value={maxGuests}
+                  onChange={(ev) => setMaxGuests(ev.target.value)}
+                />
               </div>
               <div>
                 <h3 className="mt-2 -mb-1">Price per night</h3>
-                <input type="number" />
+                <input type="number" value={price} onChange={(ev) => setPrice(ev.target.value)} />
               </div>
             </div>
             <button className="primary my-4">Save</button>
