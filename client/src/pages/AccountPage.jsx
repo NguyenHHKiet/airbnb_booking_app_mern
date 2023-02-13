@@ -9,6 +9,7 @@ const AccountPage = () => {
   let { subpage } = useParams();
 
   if (!ready) return "Loading...";
+  // haven't used yet
   if (!user && ready && !redirect) return <Navigate to={"/login"} />;
   if (subpage === undefined) subpage = "profile";
   if (redirect) return <Navigate to={"/"} />;
