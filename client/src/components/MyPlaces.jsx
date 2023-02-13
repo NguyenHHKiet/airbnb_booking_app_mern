@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import Perks from "./Perks";
 
 const MyPlaces = () => {
   const { action } = useParams();
+  const [perks, setPerks] = useState([]);
 
   function inputHeader(text) {
     return <h2 className="text-2xl mt-4">{text}</h2>;
@@ -82,11 +84,13 @@ const MyPlaces = () => {
               </button>
             </div>
             {preInput("Description", "description of the place")}
-            <textarea />
+            <textarea className="w-full" />
             {preInput("Perks", "select all the perks of your place")}
-            <div className="grid mt-2 gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">Perks</div>
+            <div className="grid mt-2 gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+              <Perks selected={perks} onChange={setPerks} />
+            </div>
             {preInput("Extra info", "house rules, etc")}
-            <textarea />
+            <textarea className="w-full" />
             {preInput(
               "Check in&out times",
               "add check in and out times, remember to have some time window for cleaning the room between guests"
