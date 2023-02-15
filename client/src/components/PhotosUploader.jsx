@@ -35,8 +35,6 @@ const PhotosUploader = ({ addedPhotos, onChange }) => {
     photoLink ? setButton(false) : setButton(true);
   }, [photoLink]);
 
-  console.log(addedPhotos);
-
   return (
     <>
       <div className="flex gap-2">
