@@ -8,6 +8,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const imageDownloader = require('image-downloader');
+const multer = require('multer');
+const fs = require('fs');
 
 require('dotenv').config();
 const app = express();
@@ -100,7 +102,6 @@ app.post('/logout', (req, res) => {
   res.cookie('token', '').json(true);
 });
 
-console.log({ __dirname });
 app.post('/upload-by-link', async (req, res) => {
   const { link } = req.body;
   const newName = 'photo' + Date.now() + '.jpg';
@@ -109,6 +110,20 @@ app.post('/upload-by-link', async (req, res) => {
     dest: __dirname + '/uploads/' + newName,
   });
   res.json(newName);
+});
+
+const photoMiddleware = multer({ dest: __dirname + '/uploads/' });
+app.post('/upload', photoMiddleware.array('photos', 100), (req, res) => {
+  const uploadedFiles = [];
+  for (const file of req.files) {
+    const { path, originalname } = file;
+    const parts = originalname.split(".");
+    const ext = parts[parts.length - 1];
+    const newPath = path + "." + ext;
+    fs.renameSync(path, newPath);
+    uploadedFiles.push(newPath.replace(`${__dirname}\\uploads\\`, ""));
+  }
+  res.json(uploadedFiles);
 });
 
 // FvCL2xpzSiB7ls0P

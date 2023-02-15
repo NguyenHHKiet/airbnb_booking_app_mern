@@ -5,6 +5,8 @@ import axios from "axios";
 const PhotosUploader = ({ addedPhotos, onChange }) => {
   const [photoLink, setPhotoLink] = useState("");
   const [button, setButton] = useState(false);
+  const data = new FormData();
+
   async function addPhotoByLink(ev) {
     ev.preventDefault();
     const { data: filename } = await axios.post("/upload-by-link", { link: photoLink });
@@ -14,13 +16,12 @@ const PhotosUploader = ({ addedPhotos, onChange }) => {
     setPhotoLink("");
   }
 
-  async function uploadPhotos(e) {
+  function uploadPhotos(e) {
     const files = e.target.files;
-    const data = new FormData();
-    for (let i = 0; i < files.length; i++) {
-      data.append("photos", files[i]);
+    for (const file of files) {
+      data.append("photos", file);
     }
-    await axios
+    axios
       .post("/upload", data, { headers: { "Content-type": "multipart/form-data" } })
       .then((response) => {
         const { data: filenames } = response;
@@ -31,10 +32,10 @@ const PhotosUploader = ({ addedPhotos, onChange }) => {
   }
 
   useEffect(() => {
-    if (!photoLink) {
-      setButton(true);
-    } else setButton(false);
+    photoLink ? setButton(false) : setButton(true);
   }, [photoLink]);
+
+  console.log(addedPhotos);
 
   return (
     <>
