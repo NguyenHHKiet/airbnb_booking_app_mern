@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import Perks from "./Perks";
 import PhotosUploader from "./PhotosUploader";
+import axios from "axios";
 
 const MyPlaces = () => {
   const { action } = useParams();
@@ -31,9 +32,23 @@ const MyPlaces = () => {
     );
   }
 
-  if (redirect) {
-    return <Navigate to={"/account/places"} />;
+  async function addNewPlaces(e) {
+    e.preventDefault();
+    const { data } = await axios.post("/places", {
+      title,
+      address,
+      addedPhotos,
+      description,
+      perks,
+      extraInfo,
+      checkIn,
+      checkOut,
+      maxGuests
+    });
+    setRedirect(true);
   }
+
+  if (redirect) return <Navigate to={"/account/places"} />;
 
   return (
     <div className="px-12">
@@ -59,7 +74,7 @@ const MyPlaces = () => {
       )}
       {action === "new" && (
         <div>
-          <form>
+          <form onSubmit={addNewPlaces}>
             {preInput(
               "Title",
               "Title for your place. should be short and catchy as in advertisement"
