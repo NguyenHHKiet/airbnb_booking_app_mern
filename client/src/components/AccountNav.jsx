@@ -5,7 +5,6 @@ const AccountNav = () => {
   const { pathname } = useLocation();
   let subpage = pathname.split("/")?.[2];
   if (subpage === undefined) subpage = "profile";
-  console.log(subpage);
   //change current color tab
   function linkClasses(type = null) {
     let classes = " inline-flex gap-1 py-2 px-4 font-medium rounded-full ";
