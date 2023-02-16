@@ -24,7 +24,7 @@ const AccountPage = () => {
 
   return (
     <div>
-      <AccountNav subpage={subpage} />
+      <AccountNav />
       {subpage === "profile" && (
         <div className="text-center mx-auto max-w-lg mt-5">
           Logged in as {user.name} ({user.email})<br />
