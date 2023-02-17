@@ -171,6 +171,10 @@ app.put('/places', async (req, res) => {
   });
 });
 
+app.get('/places', async (req, res) => {
+  res.json(await Place.find());
+});
+
 // FvCL2xpzSiB7ls0P
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
