@@ -17,7 +17,7 @@ const PlaceImg = ({ place, index = 0, className = null }) => {
 
 export default PlaceImg;
 PlaceImg.propTypes = {
-  place: PropTypes.array,
+  place: PropTypes.object,
   index: PropTypes.number,
   className: PropTypes.string
 };
