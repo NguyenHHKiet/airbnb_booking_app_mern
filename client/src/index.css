@@ -9,6 +9,11 @@ input[type="number"] {
     @apply w-full border my-2 py-2 px-3 rounded-full;
 }
 
+textarea {
+    @apply w-full border my-2 py-2 px-3 rounded-2xl;
+    height: 140px;
+}
+
 button {
     @apply bg-gray-300;
 }

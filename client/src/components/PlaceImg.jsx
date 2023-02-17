@@ -1,11 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const PlaceImg = ({ place, index = 0, className = null }) => {
   if (!place.addedPhotos?.length) return "";
 
   if (!className) className = "object-cover";
 
-  console.log(place);
   return (
     <img
       className={className}
@@ -16,3 +16,8 @@ const PlaceImg = ({ place, index = 0, className = null }) => {
 };
 
 export default PlaceImg;
+PlaceImg.propTypes = {
+  place: PropTypes.object,
+  index: PropTypes.number,
+  className: PropTypes.string
+};
