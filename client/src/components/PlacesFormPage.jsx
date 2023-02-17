@@ -33,9 +33,27 @@ const PlacesFormPage = () => {
     );
   }
 
-  async function addNewPlaces(e) {
+  useEffect(() => {
+    if (!id) {
+      return;
+    }
+    axios.get("/places/" + id).then((response) => {
+      const { data } = response;
+      setTitle(data.title);
+      setAddress(data.address);
+      setAddedPhotos(data.addedPhotos);
+      setDescription(data.description);
+      setPerks(data.perks);
+      setExtraInfo(data.extraInfo);
+      setCheckIn(data.checkIn);
+      setCheckOut(data.checkOut);
+      setMaxGuests(data.maxGuests);
+    });
+  }, [id]);
+
+  async function savePlaces(e) {
     e.preventDefault();
-    const { data } = await axios.post("/places", {
+    const placeData = {
       title,
       address,
       addedPhotos,
@@ -44,25 +62,29 @@ const PlacesFormPage = () => {
       extraInfo,
       checkIn,
       checkOut,
-      maxGuests
-    });
-    console.log(data);
-    setRedirect(true);
+      maxGuests,
+      price
+    };
+    if (id) {
+      // update
+      await axios.put("/places", {
+        id,
+        ...placeData
+      });
+      setRedirect(true);
+    } else {
+      // new place
+      await axios.post("/places", placeData);
+      setRedirect(true);
+    }
   }
 
   if (redirect) return <Navigate to={"/account/places"} />;
 
-  useEffect(() => {
-    if (!id) {
-      return;
-    }
-    axios.get("/places/" + id);
-  }, [id]);
-
   return (
     <div>
       <AccountNav />{" "}
-      <form onSubmit={addNewPlaces}>
+      <form onSubmit={savePlaces}>
         {preInput("Title", "Title for your place. should be short and catchy as in advertisement")}
         <input
           type="text"

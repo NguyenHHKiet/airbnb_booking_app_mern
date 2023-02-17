@@ -149,6 +149,28 @@ app.get('/user-places', (req, res) => {
   });
 });
 
+app.get('/places/:id', async (req, res) => {
+  const { id } = req.params;
+  res.json(await Place.findById(id));
+});
+
+app.put('/places', async (req, res) => {
+  const { token } = req.cookies;
+  const { id, title, address, addedPhotos, description, perks,
+    extraInfo, checkIn, checkOut, maxGuests } = req.body;
+  const placeDoc = await Place.findById(id);
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (userData.id === placeDoc.owner.toString()) {
+      placeDoc.set({
+        title, address, addedPhotos, description, perks,
+        extraInfo, checkIn, checkOut, maxGuests
+      });
+      await placeDoc.save();
+      res.json('ok');
+    }
+  });
+});
+
 // FvCL2xpzSiB7ls0P
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
