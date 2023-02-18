@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const User = require('./model/User');
 const Place = require('./model/Place');
+const Booking = require('./model/Booking');
 const bcrypt = require('bcryptjs');
 
 const jwt = require('jsonwebtoken');
@@ -11,6 +12,7 @@ const cookieParser = require('cookie-parser');
 const imageDownloader = require('image-downloader');
 const multer = require('multer');
 const fs = require('fs');
+const { rejects } = require('assert');
 
 require('dotenv').config();
 const app = express();
@@ -33,7 +35,16 @@ mongoose.connect(uri);
 const connection = mongoose.connection;
 connection.once('open', () => {
   console.log("MongoDB database connection established successfully");
-})
+});
+
+function getUserDataFromReq(req) {
+  return new Promise((resolve, rejects) => {
+    jwt.verify(req.cookies.token, jwtSecret, {}, async (err, userData) => {
+      if (err) throw err;
+      resolve(userData);
+    })
+  });
+}
 
 app.get('/test', (req, res) => {
   res.json('test oke');
@@ -174,6 +185,21 @@ app.put('/places', async (req, res) => {
 
 app.get('/places', async (req, res) => {
   res.json(await Place.find());
+});
+
+app.post('/bookings', async (req, res) => {
+  const userData = await getUserDataFromReq(req);
+  const { checkIn, checkOut, numberOfGuests,
+    name, phone, place, price } = req.body;
+  Booking.create({
+    checkIn, checkOut, numberOfGuests,
+    name, phone, place, price, user: userData.id
+  }).then(doc => res.json(doc)).catch(err => { throw err });
+});
+
+app.get('/bookings', async (req, res) => {
+  const userData = await getUserDataFromReq(req);
+  res.json(await Booking.find({ user: userData.id }).populate('place'));
 });
 
 // FvCL2xpzSiB7ls0P
