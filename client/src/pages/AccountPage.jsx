@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import { UserContext } from "../UserContext";
 import { Navigate, useParams } from "react-router-dom";
 import axios from "axios";
-import MyPlaces from "../components/MyPlaces";
 import AccountNav from "../components/AccountNav";
 
 const AccountPage = () => {
@@ -26,16 +25,11 @@ const AccountPage = () => {
     <div>
       <AccountNav />
       {subpage === "profile" && (
-        <div className="text-center mx-auto max-w-lg mt-5">
+        <div className="text-center mx-auto max-w-lg mt-8">
           Logged in as {user.name} ({user.email})<br />
           <button onClick={logout} className="primary max-w-sm mt-2">
             Logout
           </button>
-        </div>
-      )}
-      {subpage === "places" && (
-        <div className=" mx-auto mt-5">
-          <MyPlaces />
         </div>
       )}
     </div>

@@ -85,7 +85,7 @@ const PlacesFormPage = () => {
   return (
     <div>
       <AccountNav />{" "}
-      <form onSubmit={savePlaces}>
+      <form onSubmit={savePlaces} className="mx-8">
         {preInput("Title", "Title for your place. should be short and catchy as in advertisement")}
         <input
           type="text"

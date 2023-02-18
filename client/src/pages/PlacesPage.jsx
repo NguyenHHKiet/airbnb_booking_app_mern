@@ -23,7 +23,7 @@ const PlacesPage = () => {
             <Link
               key={place._id}
               to={"/account/places/" + place._id}
-              className="flex cursor-pointer gap-4 bg-gray-100 p-4 rounded-2xl">
+              className="flex cursor-pointer gap-4 bg-gray-100 p-4 rounded-2xl mx-8">
               <div className="flex w-36 h-36 bg-gray-300 shrink-0">
                 <PlaceImg place={place} />
               </div>

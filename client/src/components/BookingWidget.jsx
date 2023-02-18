@@ -3,6 +3,7 @@ import { UserContext } from "../UserContext";
 import { Navigate } from "react-router-dom";
 import { differenceInCalendarDays } from "date-fns";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 const BookingWidget = ({ place }) => {
   const [checkIn, setCheckIn] = useState("");
@@ -47,11 +48,21 @@ const BookingWidget = ({ place }) => {
         <div className="flex">
           <div className="py-3 px-4">
             <label>Check in:</label>
-            <input type="date" value={checkIn} onChange={(ev) => setCheckIn(ev.target.value)} />
+            <input
+              className="w-full"
+              type="date"
+              value={checkIn}
+              onChange={(ev) => setCheckIn(ev.target.value)}
+            />
           </div>
           <div className="py-3 px-4 border-l">
             <label>Check out:</label>
-            <input type="date" value={checkOut} onChange={(ev) => setCheckOut(ev.target.value)} />
+            <input
+              className="w-full"
+              type="date"
+              value={checkOut}
+              onChange={(ev) => setCheckOut(ev.target.value)}
+            />
           </div>
         </div>
         <div className="py-3 px-4 border-t">
