@@ -33,7 +33,7 @@ const PlaceGallery = ({ place }) => {
                 <img
                   src={`http://localhost:5000/uploads/${photo}`}
                   alt="photo"
-                  className="w-screen p-8"
+                  className="p-8 w-1/2 relative left-1/4"
                 />
               </div>
             ))}
@@ -44,38 +44,33 @@ const PlaceGallery = ({ place }) => {
 
   return (
     <div className="relative">
-      <div className="grid gap-2 grid-cols-[2fr_1fr] rounded-3xl overflow-hidden ">
+      <div className="grid gap-2 grid-cols-2 rounded-3xl overflow-hidden ">
         <div>
           {place.addedPhotos?.[0] && (
             <div>
               <img
                 onClick={() => setShowAllPhotos(true)}
-                className="aspect-square cursor-pointer object-cover"
+                className="aspect-square cursor-pointer object-cover w-full"
                 src={"http://localhost:5000/uploads/" + place.addedPhotos[0]}
                 alt=""
               />
             </div>
           )}
         </div>
-        <div className="grid">
-          {place.addedPhotos?.[1] && (
-            <img
-              onClick={() => setShowAllPhotos(true)}
-              className="aspect-square cursor-pointer object-cover"
-              src={"http://localhost:5000/uploads/" + place.addedPhotos[1]}
-              alt=""
-            />
+        <div className="grid grid-cols-2 gap-2">
+          {place.addedPhotos?.map(
+            (item, index) =>
+              index <= 4 &&
+              index >= 1 && (
+                <img
+                  key={item}
+                  onClick={() => setShowAllPhotos(true)}
+                  className="aspect-square cursor-pointer object-cover w-full"
+                  src={"http://localhost:5000/uploads/" + item}
+                  alt=""
+                />
+              )
           )}
-          <div className="overflow-hidden">
-            {place.addedPhotos?.[2] && (
-              <img
-                onClick={() => setShowAllPhotos(true)}
-                className="aspect-square cursor-pointer object-cover relative top-2"
-                src={"http://localhost:5000/uploads/" + place.addedPhotos[2]}
-                alt=""
-              />
-            )}
-          </div>
         </div>
       </div>
       <button
