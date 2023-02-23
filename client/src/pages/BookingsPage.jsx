@@ -27,7 +27,7 @@ const BookingsPage = () => {
               <div className="flex w-48 h-36 shrink-0">
                 <PlaceImg place={booking.place} />
               </div>
-              <div className="py-3 pr-3 grow">
+              <div className="py-3 px-3 grow">
                 <h2 className="text-xl">{booking.place.title}</h2>
                 <div className="text-xl">
                   <BookingDates booking={booking} className="mb-2 mt-4 text-gray-500" />

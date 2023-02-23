@@ -6,7 +6,9 @@ const Layout = () => {
   return (
     <div className="p-4 flex flex-col min-h-screen">
       <Header />
-      <Outlet />
+      <div className="max-w-5xl my-0 mx-auto py-0 px-4">
+        <Outlet />
+      </div>
     </div>
   );
 };
