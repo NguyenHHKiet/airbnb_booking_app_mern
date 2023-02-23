@@ -18,7 +18,7 @@ const PlaceDetail = () => {
   if (!place) return "";
 
   return (
-    <div className="mt-8 bg-gray-200 -mx-8 px-8 pt-8 w-screen">
+    <div className="mt-8 bg-gray-200 -mx-8 px-8 pt-8 rounded-2xl">
       <h1 className="text-3xl">{place.title}</h1>
       <AddressLink>{place.address}</AddressLink>
       <PlaceGallery place={place} />
