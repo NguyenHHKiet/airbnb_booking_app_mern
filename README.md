@@ -17,6 +17,7 @@ yarn
 
 ## Usage
 You need to create a mongodb account on the browser, the next step is to create a free cluster for us. Once we have the cluster, we will continue to connect to the app by copying the mongodb path in the connect section.
+
 In the app, you have to create a file named .env at the root level and paste the mongodb path we copied inside and remember to assign a name to the path, remember to adjust the password and database name.
 
 ![image](https://user-images.githubusercontent.com/52524133/220839667-3adca244-1b80-4fb7-b84d-87653c2c13ef.png)
