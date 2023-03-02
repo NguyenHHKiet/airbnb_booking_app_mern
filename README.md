@@ -20,6 +20,7 @@ You need to create a mongodb account on the browser, the next step is to create 
 
 In the app, you have to create a file named .env at the root level and paste the mongodb path we copied inside and remember to assign a name to the path, remember to adjust the password and database name.
 
+### Images
 ![image](https://user-images.githubusercontent.com/52524133/220839667-3adca244-1b80-4fb7-b84d-87653c2c13ef.png)
 ![image](https://user-images.githubusercontent.com/52524133/220839868-52d3c03b-4c46-4d5e-a72a-5ee94e79372a.png)
 ![image](https://user-images.githubusercontent.com/52524133/220840140-15cf89b4-1f03-4c70-992d-b26356f223c3.png)
