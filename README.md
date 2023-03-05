@@ -20,6 +20,8 @@ You need to create a mongodb account on the browser, the next step is to create 
 
 In the app, you have to create a file named .env at the root level and paste the mongodb path we copied inside and remember to assign a name to the path, remember to adjust the password and database name.
 
+Href: [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/lp/try4?utm_source=google&utm_campaign=search_gs_pl_evergreen_atlas_core_prosp-brand_gic-null_apac-vn_ps-all_desktop_eng_lead&utm_term=mongodb&utm_medium=cpc_paid_search&utm_ad=e&utm_ad_campaign_id=12212624377&adgroup=115749709583&cq_cmp=12212624377&gclid=Cj0KCQiA9YugBhCZARIsAACXxeImC3-49t3lmTLjVmW_8VaCuQLKNEFZx1O25RMNxe61732hYb5BewsaAve_EALw_wcB)
+
 ### Images
 ![image](https://user-images.githubusercontent.com/52524133/220839667-3adca244-1b80-4fb7-b84d-87653c2c13ef.png)
 ![image](https://user-images.githubusercontent.com/52524133/220839868-52d3c03b-4c46-4d5e-a72a-5ee94e79372a.png)
